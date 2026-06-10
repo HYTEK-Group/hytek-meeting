@@ -22,8 +22,12 @@ export default function OrganiserScreen({ staff, onGo, onOwner }: Props) {
     })
   }
 
-  const selected   = staff.filter(p => selectedIds.has(p.id))
-  const unselected = staff.filter(p => !selectedIds.has(p.id) && matchesQuery(p.name, query))
+  const isSearching = query.trim().length > 0
+  // While searching: every person matching the query, at the top under the box (ticked state shown).
+  const matches = staff.filter(p => matchesQuery(p.name, query))
+  // While browsing (empty box): the people you've already picked first, then everyone else.
+  const picked    = staff.filter(p => selectedIds.has(p.id))
+  const notPicked = staff.filter(p => !selectedIds.has(p.id))
 
   const renderItem = (p: StaffPublic, isSelected: boolean) => (
     <button key={p.id} onClick={() => toggle(p.id)}
@@ -73,15 +77,29 @@ export default function OrganiserScreen({ staff, onGo, onOwner }: Props) {
       </div>
 
       <div className="flex flex-col gap-2 flex-1 overflow-y-auto pb-32">
-        {selected.map(p => renderItem(p, true))}
-        {selected.length > 0 && unselected.length > 0 && (
-          <div className="h-px my-1" style={{ background:'#1f1f1f' }} />
-        )}
-        {unselected.map(p => renderItem(p, false))}
-        {unselected.length === 0 && selected.length === 0 && (
-          <p className="text-center py-6 text-sm" style={{ color:'var(--text-dim)' }}>
-            No match for &ldquo;{query}&rdquo;
-          </p>
+        {isSearching ? (
+          matches.length === 0 ? (
+            <p className="text-center py-6 text-sm" style={{ color:'var(--text-dim)' }}>
+              No match for &ldquo;{query}&rdquo;
+            </p>
+          ) : (
+            <>
+              {selectedIds.size > 0 && (
+                <p className="text-xs px-1 pb-1" style={{ color:'var(--text-dim)' }}>
+                  {selectedIds.size} already picked — keep typing to add the next person
+                </p>
+              )}
+              {matches.map(p => renderItem(p, selectedIds.has(p.id)))}
+            </>
+          )
+        ) : (
+          <>
+            {picked.map(p => renderItem(p, true))}
+            {picked.length > 0 && notPicked.length > 0 && (
+              <div className="h-px my-1" style={{ background:'#1f1f1f' }} />
+            )}
+            {notPicked.map(p => renderItem(p, false))}
+          </>
         )}
       </div>
 
