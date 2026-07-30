@@ -51,8 +51,8 @@ export default function AddPersonModal({ pin, staff, editingId, onSaved, onClose
     <div className="fixed inset-0 z-50 flex items-end" style={{ background:'rgba(0,0,0,0.78)' }}
          onClick={e => { if (e.target === e.currentTarget) onClose() }}>
       <div className="w-full rounded-t-3xl p-5 pb-11 animate-slide-up flex flex-col"
-           style={{ background:'#1c1c1e', maxHeight:'88dvh' }}>
-        <div className="w-10 h-1 rounded-full mx-auto mb-5 flex-shrink-0" style={{ background:'#3a3a3c' }} />
+           style={{ background:'var(--card)', maxHeight:'88dvh' }}>
+        <div className="w-10 h-1 rounded-full mx-auto mb-5 flex-shrink-0" style={{ background:'var(--border)' }} />
         <h3 className="text-lg font-bold mb-4 flex-shrink-0">
           {editingId ? 'Edit Person' : 'Add Person'}
         </h3>
@@ -64,7 +64,7 @@ export default function AddPersonModal({ pin, staff, editingId, onSaved, onClose
               <input
                 autoFocus
                 className="w-full rounded-xl pl-10 pr-4 py-3.5 text-base outline-none"
-                style={{ background:'#2c2c2e', border:'1.5px solid #3a3a3c', color:'var(--text)' }}
+                style={{ background:'var(--input)', border:'1.5px solid var(--border)', color:'var(--text)' }}
                 placeholder="Type a name…"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
@@ -78,7 +78,7 @@ export default function AddPersonModal({ pin, staff, editingId, onSaved, onClose
               ) : searchResults.map(p => (
                 <button key={p.id}
                   onClick={() => { setName(p.name); setRate(String(p.rate)); setMode('manual') }}
-                  className="w-full flex justify-between items-center px-3.5 py-4 rounded-xl mb-0.5 text-left active:bg-neutral-800 transition-colors"
+                  className="w-full flex justify-between items-center px-3.5 py-4 rounded-xl mb-0.5 text-left active:bg-[var(--card2)] transition-colors"
                 >
                   <span className="text-base font-medium">{p.name}</span>
                   <span className="text-sm font-semibold" style={{ color:'var(--accent)' }}>${p.rate}/hr</span>
@@ -92,7 +92,7 @@ export default function AddPersonModal({ pin, staff, editingId, onSaved, onClose
             </div>
             <button onClick={() => { setName(''); setRate(''); setMode('manual') }}
               className="w-full rounded-xl py-3.5 text-sm flex-shrink-0"
-              style={{ background:'#2c2c2e', border:'none', color:'var(--text-dim)' }}>
+              style={{ background:'var(--card2)', border:'none', color:'var(--text-dim)' }}>
               + Add manually
             </button>
           </div>
@@ -107,19 +107,19 @@ export default function AddPersonModal({ pin, staff, editingId, onSaved, onClose
             <div className="mb-3.5">
               <label className="block text-xs uppercase tracking-wide mb-2" style={{ color:'var(--text-dim)' }}>Full Name</label>
               <input autoFocus className="w-full rounded-xl px-4 py-3.5 text-base outline-none"
-                     style={{ background:'#2c2c2e', border:'1.5px solid #3a3a3c', color:'var(--text)' }}
+                     style={{ background:'var(--input)', border:'1.5px solid var(--border)', color:'var(--text)' }}
                      placeholder="e.g. Sarah Johnson" value={name} onChange={e => setName(e.target.value)} />
             </div>
             <div className="mb-3.5">
               <label className="block text-xs uppercase tracking-wide mb-2" style={{ color:'var(--text-dim)' }}>Hourly Rate ($/hr)</label>
               <input type="number" inputMode="decimal" min="0" step="any"
                      className="w-full rounded-xl px-4 py-3.5 text-base outline-none"
-                     style={{ background:'#2c2c2e', border:'1.5px solid #3a3a3c', color:'var(--text)' }}
+                     style={{ background:'var(--input)', border:'1.5px solid var(--border)', color:'var(--text)' }}
                      placeholder="e.g. 120" value={rate} onChange={e => setRate(e.target.value)} />
             </div>
             <div className="flex gap-2.5 mt-4">
               <button onClick={onClose} className="flex-1 rounded-xl py-4 text-base"
-                      style={{ background:'#2c2c2e', border:'none', color:'var(--text)' }}>Cancel</button>
+                      style={{ background:'var(--card2)', border:'none', color:'var(--text)' }}>Cancel</button>
               <button onClick={save} disabled={saving} className="flex-[2] rounded-xl py-4 text-base font-bold"
                       style={{ background:'var(--accent)', border:'none', color:'#000', opacity: saving ? 0.6 : 1 }}>
                 {saving ? 'Saving…' : 'Save'}

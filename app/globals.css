@@ -19,7 +19,11 @@
   --muted: #2a2730;
   --muted-foreground: #9ca3af;
   --border: #34313b;
-  --input: #1a1a1a;
+  /* A step LIGHTER than --card (#1a1a1a) on purpose. Production has always
+     drawn input fields as a lighter panel than the sheet they sit on (#2c2c2e
+     on #1c1c1e); matching --card here would make a field indistinguishable
+     from its own sheet and leave the 1.5px border doing all the work. */
+  --input: #2c2c2e;
 }
 
 /* Light-mode overrides */
