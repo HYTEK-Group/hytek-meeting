@@ -1,7 +1,7 @@
 ---
 app: hytek-meeting
 url: https://hytek-meeting.vercel.app
-status: side-tool                    # Scott, 17/09/2026 (decision 16) — not archived; NOT part of the live business system
+status: side-tool                    # Scott, 17/09/2026 (side-tool decision) — not archived; NOT part of the live business system
 live_system: false
 role: none                           # uses its own project's service key, not a suite Postgres role
 unattended: none                     # no cron, no vercel.json, no scheduled task — it only runs when a person opens it
